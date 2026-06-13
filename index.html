@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Graduation Surprise</title>
+
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #111827;
+      color: white;
+      text-align: center;
+    }
+
+    .card {
+      background: #1f2937;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
+      max-width: 500px;
+      width: 90%;
+    }
+
+    input {
+      padding: 12px;
+      border-radius: 8px;
+      border: none;
+      width: 80%;
+      margin-top: 15px;
+      font-size: 16px;
+    }
+
+    button {
+      margin-top: 15px;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 8px;
+      background: #60a5fa;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #3b82f6;
+    }
+
+    #message {
+      display: none;
+      margin-top: 30px;
+      font-size: 32px;
+      font-weight: bold;
+      animation: pop 1s ease-in-out;
+    }
+
+    @keyframes pop {
+      0% {
+        transform: scale(0.5);
+        opacity: 0;
+      }
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    .confetti {
+      font-size: 40px;
+      margin-top: 20px;
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="card">
+    <h1>Graduation Code Portal</h1>
+    <p>Enter the secret code to unlock your message:</p>
+
+    <input type="text" id="codeInput" placeholder="Enter code here" />
+    <br />
+    <button onclick="checkCode()">Enter</button>
+
+    <p id="error" style="color: #f87171;"></p>
+
+    <div id="message">
+      Congratulations on your graduation, you computer scientist!
+    </div>
+
+    <div class="confetti" id="confetti">
+      🎓 🎉 💻 🚀 🎉 🎓
+    </div>
+  </div>
+
+  <script>
+    function checkCode() {
+      const secretCode = "GRAD2026";
+      const userCode = document.getElementById("codeInput").value.trim();
+
+      if (userCode === secretCode) {
+        document.getElementById("message").style.display = "block";
+        document.getElementById("confetti").style.display = "block";
+        document.getElementById("error").textContent = "";
+      } else {
+        document.getElementById("error").textContent = "Wrong code. Try again!";
+      }
+    }
+  </script>
+</body>
+</html>
