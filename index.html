@@ -1,89 +1,52 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Graduation Surprise</title>
-  <style>
-    body {
-      background: black;
-      color: lime;
-      font-family: monospace;
-      padding: 30px;
-      font-size: 20px;
-    }
+<script>
+  const terminal = document.getElementById("terminal");
+  const portal = document.getElementById("portal");
 
-    #portal {
-      display: none;
-      margin-top: 30px;
-    }
+  const lines = [
+    "> npm install graduation-success",
+    "> importing { hardWork, lateNights, debugging } from './degree'",
+    "> function celebrateGraduate() {",
+    ">   return 'Congratulations, Computer Scientist!';",
+    "> }",
+    "> compiling final project...",
+    "> running graduation.exe...",
+    "> ACCESS GRANTED."
+  ];
 
-    input, button {
-      font-size: 18px;
-      padding: 10px;
-      margin-top: 10px;
-    }
+  let lineIndex = 0;
+  let charIndex = 0;
 
-    #message {
-      display: none;
-      color: white;
-      font-size: 32px;
-      margin-top: 30px;
-    }
-  </style>
-</head>
-
-<body>
-  <h1>Graduation Program</h1>
-
-  <div id="terminal"></div>
-
-  <div id="portal">
-    <p>Enter secret code:</p>
-    <input id="codeInput" placeholder="Enter code" />
-    <button onclick="checkCode()">Run</button>
-    <p id="error" style="color: red;"></p>
-  </div>
-
-  <div id="message">
-    🎓 Congratulations on your graduation, you computer scientist! 🎉
-  </div>
-
-  <script>
-    const terminal = document.getElementById("terminal");
-    const portal = document.getElementById("portal");
-
-    const lines = [
-      "Running graduation.exe...",
-      "Loading computer science files...",
-      "Compiling success...",
-      "Checking final project...",
-      "Access portal ready."
-    ];
-
-    let i = 0;
-
-    function runCode() {
-      if (i < lines.length) {
-        terminal.innerHTML += lines[i] + "<br>";
-        i++;
-        setTimeout(runCode, 700);
+  function typeCode() {
+    if (lineIndex < lines.length) {
+      if (charIndex < lines[lineIndex].length) {
+        terminal.innerHTML += lines[lineIndex][charIndex];
+        charIndex++;
+        setTimeout(typeCode, 45);
       } else {
+        terminal.innerHTML += "<br>";
+        lineIndex++;
+        charIndex = 0;
+        setTimeout(typeCode, 500);
+      }
+    } else {
+      setTimeout(() => {
         portal.style.display = "block";
-      }
+      }, 700);
     }
+  }
 
-    function checkCode() {
-      const secretCode = "GRAD2026";
-      const userCode = document.getElementById("codeInput").value.trim();
+  function checkCode() {
+    const secretCode = "GRAD2026";
+    const userCode = document.getElementById("codeInput").value.trim();
 
-      if (userCode === secretCode) {
-        document.getElementById("message").style.display = "block";
-        document.getElementById("error").innerText = "";
-      } else {
-        document.getElementById("error").innerText = "Wrong code. Try again.";
-      }
+    if (userCode === secretCode) {
+      document.getElementById("message").style.display = "block";
+      document.getElementById("error").innerText = "";
+    } else {
+      document.getElementById("error").innerText = "Wrong code. Try again.";
     }
+  }
 
-    runCode();
-  </script>
-</body>
-</html>
+  typeCode();
+</script>
+ 
