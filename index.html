@@ -8,7 +8,7 @@
   <style>
     body {
       margin: 0;
-      height: 100vh;
+      min-height: 100vh;
       font-family: Arial, sans-serif;
       display: flex;
       justify-content: center;
@@ -20,11 +20,23 @@
 
     .card {
       background: #1f2937;
-      padding: 40px;
+      padding: 35px;
       border-radius: 20px;
       box-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
-      max-width: 500px;
+      max-width: 600px;
       width: 90%;
+    }
+
+    .terminal {
+      background: #020617;
+      color: #22c55e;
+      text-align: left;
+      padding: 20px;
+      border-radius: 12px;
+      font-family: "Courier New", monospace;
+      min-height: 180px;
+      margin-bottom: 25px;
+      white-space: pre-wrap;
     }
 
     input {
@@ -51,12 +63,22 @@
       background: #3b82f6;
     }
 
+    #portal {
+      display: none;
+    }
+
     #message {
       display: none;
       margin-top: 30px;
       font-size: 32px;
       font-weight: bold;
       animation: pop 1s ease-in-out;
+    }
+
+    .confetti {
+      font-size: 40px;
+      margin-top: 20px;
+      display: none;
     }
 
     @keyframes pop {
@@ -69,36 +91,63 @@
         opacity: 1;
       }
     }
-
-    .confetti {
-      font-size: 40px;
-      margin-top: 20px;
-      display: none;
-    }
   </style>
 </head>
 
 <body>
   <div class="card">
     <h1>Graduation Code Portal</h1>
-    <p>Enter the secret code to unlock your message:</p>
 
-    <input type="text" id="codeInput" placeholder="Enter code here" />
-    <br />
-    <button onclick="checkCode()">Enter</button>
+    <div class="terminal" id="terminal"></div>
 
-    <p id="error" style="color: #f87171;"></p>
+    <div id="portal">
+      <p>Enter the secret code to unlock your message:</p>
 
-    <div id="message">
-      Congratulations on your graduation, you computer scientist!
-    </div>
+      <input type="text" id="codeInput" placeholder="Enter code here" />
+      <br />
+      <button onclick="checkCode()">Enter</button>
 
-    <div class="confetti" id="confetti">
-      🎓 🎉 💻 🚀 🎉 🎓
+      <p id="error" style="color: #f87171;"></p>
+
+      <div id="message">
+        Congratulations on your graduation, you computer scientist!
+      </div>
+
+      <div class="confetti" id="confetti">
+        🎓 🎉 💻 🚀 🎉 🎓
+      </div>
     </div>
   </div>
 
   <script>
+    const lines = [
+      "> Initializing graduation program...",
+      "> Loading computer science achievement files...",
+      "> Running final algorithm...",
+      "> Compiling memories...",
+      "> Checking secret access code...",
+      "> System ready."
+    ];
+
+    const terminal = document.getElementById("terminal");
+    const portal = document.getElementById("portal");
+
+    let lineIndex = 0;
+
+    function typeLine() {
+      if (lineIndex < lines.length) {
+        terminal.textContent += lines[lineIndex] + "\n";
+        lineIndex++;
+        setTimeout(typeLine, 800);
+      } else {
+        setTimeout(() => {
+          portal.style.display = "block";
+        }, 500);
+      }
+    }
+
+    typeLine();
+
     function checkCode() {
       const secretCode = "GRAD2026";
       const userCode = document.getElementById("codeInput").value.trim();
